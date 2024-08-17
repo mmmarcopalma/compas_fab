@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+
+<robot name="crb15000_12_127">
+
+    <!-- links: main serial chain -->
+    <link name="base_dummy"/>
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/visual/base_link.stl"/>
+            </geometry>
+            <material name="LightGrey">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/collision/base_link.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="shoulder_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.338"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/visual/link_1.stl"/>
+            </geometry>
+            <material name="LightGrey">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.338"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/collision/link_1.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="upper_arm_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/visual/link_2.stl"/>
+            </geometry>
+            <material name="LightGrey">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/collision/link_2.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="forearm_link">
+        <visual>
+            <origin rpy="1.5707963 0 0" xyz="0 0 0"/>
+            <geometry>
+            <mesh filename="package://gofa_description/meshes/crb15000_12_127/visual/link_3.stl"/>
+            </geometry>
+            <material name="LightGrey">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="1.5707963 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/collision/link_3.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="wrist_1_link">
+        <visual>
+            <origin rpy="0 -1.5707963 3.141593" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/visual/link_4.stl"/>
+            </geometry>
+            <material name="LightGrey">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 -1.5707963 3.141593" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/collision/link_4.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="wrist_2_link">
+        <visual>
+            <origin rpy="1.5707963 0 1.5707963" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/visual/link_5.stl"/>
+            </geometry>
+            <material name="LightGrey">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="1.5707963 0 1.5707963" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/collision/link_5.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="wrist_3_link">
+        <visual>
+            <origin rpy="0 -1.5707963 0" xyz="0 0 0.101"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/visual/link_6.stl"/>
+            </geometry>
+            <material name="LightGrey">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 -1.5707963 0" xyz="0 0 0.101"/>
+            <geometry>
+                <mesh filename="package://gofa_description/meshes/crb15000_12_127/collision/link_6.stl"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- joints: main serial chain -->
+    <joint name="base_joint" type="fixed">
+        <parent link="base_dummy"/>
+        <child link="base_link"/>
+    </joint>
+    <joint name="shoulder_pan_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="shoulder_link"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <axis xyz="0 0 1" />
+        <limit effort="0" lower="-3.141593" upper="3.141593" velocity="2.181662"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+    <joint name="shoulder_lift_joint" type="revolute">
+        <parent link="shoulder_link"/>
+        <child link="upper_arm_link"/>
+        <origin rpy="-1.5707963 0 0" xyz="0 0 0.338"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="0" lower="-3.141593" upper="3.141593" velocity="2.181662"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+    <joint name="elbow_joint" type="revolute">
+        <parent link="upper_arm_link"/>
+        <child link="forearm_link"/>
+        <origin rpy="0 0 0" xyz="0 -0.707 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="0" lower="-3.926991" upper="1.48353" velocity="2.443461"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+    <joint name="wrist_1_joint" type="revolute">
+        <parent link="forearm_link"/>
+        <child link="wrist_1_link"/>
+        <origin rpy="-1.5707963 0 -1.5707963" xyz="0 -0.110 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="0" lower="-3.141593" upper="3.141593" velocity="3.490659"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+    <joint name="wrist_2_joint" type="revolute">
+        <parent link="wrist_1_link"/>
+        <child link="wrist_2_link"/>
+        <origin rpy="1.5707963 0 0" xyz="0 0 0.534"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="0" lower="-3.141593" upper="3.141593" velocity="3.490659"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+    <joint name="wrist_3_joint" type="revolute">
+        <parent link="wrist_2_link"/>
+        <child link="wrist_3_link"/>
+        <origin rpy="-1.5707963 0 0" xyz="0.080 0 0"/>
+        <axis xyz="0 0 1" />
+        <limit effort="0" lower="-3.141593" upper="3.141593" velocity="3.490659"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+
+    <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
+    <link name="flange"/>
+    <joint name="wrist_3-flange" type="fixed">
+          <parent link="wrist_3_link"/>
+          <child link="flange"/>
+          <origin rpy="0 -1.5707963 3.141593" xyz="0 0 0.101"/>
+    </joint>
+
+    <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
+    <link name="tool0"/>
+    <joint name="flange-tool0" type="fixed">
+          <!-- default toolframe: X+ left, Y+ up, Z+ front -->
+          <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 0"/>
+          <parent link="flange"/>
+          <child link="tool0"/>
+    </joint>
+
+</robot>

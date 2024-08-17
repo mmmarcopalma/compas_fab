@@ -59,6 +59,15 @@ UR3e_PARAMS = {
     "d6": 0.0921,
 }
 
+GOFA12_PARAMS = {
+    "d1": 0.338,
+    "a2": 0.707,
+    "a3": 0.110,
+    "d4": 0.534,
+    "d5": 0.080,
+    "d6": 0.101,
+}
+
 
 class OffsetWristKinematics(object):
     """ """
@@ -119,3 +128,10 @@ class UR10eKinematics(OffsetWristKinematics):
     def __init__(self):
         params = [UR10e_PARAMS[k] for k in ["d1", "a2", "a3", "d4", "d5", "d6"]]
         super(UR10eKinematics, self).__init__(params)
+
+class GOFA12Kinematics(OffsetWristKinematics):
+    """Analytical IK solver for CRB_15000_127 (GoFa 12) robots."""
+
+    def __init__(self):
+        params = [GOFA12_PARAMS[k] for k in ["d1", "a2", "a3", "d4", "d5", "d6"]]
+        super(GOFA12Kinematics, self).__init__(params)
